@@ -4,7 +4,6 @@ builtins = require './builtins'
 types = require './types'
 
 makeLiteral = (v) ->
-  console.log "literal", v
   if v[0] is '"'
     new types.String v
   else if /[-0-9]/.test v[0]
