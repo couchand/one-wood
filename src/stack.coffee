@@ -5,6 +5,7 @@ types = require './types'
 class Stack
   constructor: ->
     @stack = []
+    @cursor = 0
 
   push: (el) ->
     return this if el instanceof types.Unknown
@@ -19,11 +20,15 @@ class Stack
     @stack.pop()
 
   swap: ->
-    return this unless @stack.length >= 2
+    p = @stack.length - 2
+    return this unless p >= 0
+    @cursor = p if p < @cursor
     @push @stack.splice(-2, 1)[0]
 
   rotate: ->
-    return this unless @stack.length >= 3
+    p = @stack.length - 3
+    return this unless p >= 0
+    @cursor = p if p < @cursor
     @push @stack.splice(-3, 1)[0]
 
   get: (n) ->
@@ -39,7 +44,6 @@ class Stack
     this
 
   slice: ->
-    @cursor ?= 0
     s = @stack.splice @cursor
     @cursor = 0
     new types.Array s
