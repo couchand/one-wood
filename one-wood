@@ -1,0 +1,10 @@
+#!/usr/local/bin/coffee
+# cli interpreter
+
+Interpreter = require './src/interpreter'
+
+input = process.argv.slice 2
+
+i = new Interpreter "#{input}"
+
+console.log v for v in i.run().stack
