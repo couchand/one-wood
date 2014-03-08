@@ -30,3 +30,10 @@ module.exports =
       # TODO: bitwise not
     else
       # TODO: eval
+  n:  b (stack) -> stack.push new types.String "\n"
+  print:  b (stack) ->
+    v = stack.pop()
+    console.log "#{v.v}"
+  puts:   b (stack) ->
+    v = stack.pop()
+    console.log "#{v.v}\n"
