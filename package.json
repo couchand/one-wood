@@ -1,0 +1,27 @@
+{
+  "name": "one-wood",
+  "description": "a GolfScript interpreter",
+  "version": "0.0.1",
+  "homepage": "https://github.com/couchand/one-wood",
+  "author": {
+    "name": "Andrew Couch",
+    "email": "one-wood@couchand.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/couchand/one-wood.git"
+  },
+  "bugs": {
+    "url": "https://github.com/couchand/one-wood/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/couchand/one-wood/blob/master/LICENSE"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "keywords": []
+}
