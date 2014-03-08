@@ -22,3 +22,11 @@ module.exports =
       stack.push v.sort()
   '[':  b (stack) -> stack.mark()
   ']':  b (stack) -> stack.push stack.slice()
+  '~':  b (stack) ->
+    v = stack.pop()
+    if v instanceof types.Array
+      stack.push el for el in v.v
+    else if v instanceof types.Integer
+      # TODO: bitwise not
+    else
+      # TODO: eval
