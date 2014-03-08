@@ -14,7 +14,11 @@ class Interpreter
   step: ->
     token = @lexer.pop()
     value = @scope.get token
-    @stack.push value unless value instanceof types.Unknown
+    if value instanceof types.Unknown
+    else if value instanceof types.Block
+      value.run @stack, @scope
+    else
+      @stack.push value
 
   run: ->
     while @lexer.peek()

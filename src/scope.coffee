@@ -1,5 +1,6 @@
 # scope
 
+builtins = require './builtins'
 types = require './types'
 
 makeLiteral = (v) ->
@@ -13,7 +14,7 @@ makeLiteral = (v) ->
 
 class Scope
   constructor: ->
-    @variables = {}
+    @variables = builtins
 
   set: (name, value) ->
     @variables[name] = value
