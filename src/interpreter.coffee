@@ -13,6 +13,12 @@ class Interpreter
 
   step: ->
     token = @lexer.pop()
+
+    if token is ':'
+      name = @lexer.pop()
+      @scope.set name, @stack.peek()
+      return
+
     value = @scope.get token
     if value instanceof types.Unknown
     else if value instanceof types.Block
