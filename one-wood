@@ -4,8 +4,16 @@
 Lexer = require './src/lexer'
 Interpreter = require './src/interpreter'
 
-input = process.argv.slice 2
+interpret = (input) ->
+  i = new Interpreter new Lexer "#{input}"
+  console.log v for v in i.run().stack
 
-i = new Interpreter new Lexer "#{input}"
-
-console.log v for v in i.run().stack
+if (code = process.argv.slice 2).length
+  interpret code
+else
+  code = ''
+  stdin = process.openStdin()
+  stdin.on 'data', (buffer) ->
+    code += buffer.toString() if buffer
+  stdin.on 'end', ->
+    interpret code
