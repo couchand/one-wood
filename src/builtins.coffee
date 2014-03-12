@@ -41,7 +41,8 @@ module.exports =
     if v instanceof types.Integer
       stack.copy v.v
     else if v instanceof types.Block
-      # TODO: sort by mapping
+      r = stack.pop()
+      stack.push r.sort v
     else
       stack.push v.sort()
   '[':  b (stack) -> stack.mark()

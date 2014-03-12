@@ -27,8 +27,15 @@ class Integer extends KnownValue
 class Array extends KnownValue
   constructor: (@v) ->
   empty: -> @v.length is 0
-  sort: ->
-    new Array @v.sort (a, b) -> a.compare b
+  sort: (block) ->
+    if block
+      new Array @v.sort (a, b) ->
+        am = block.run [a]
+        bm = block.run [b]
+        am[0].compare bm[0]
+    else
+      new Array @v.sort (a, b) ->
+        a.compare b
 
 class String extends KnownValue
   constructor: (@v) ->
