@@ -12,6 +12,30 @@ module.exports =
   '\\': b (stack) -> stack.swap()
   '!':  b (stack) ->
     stack.push new types.Integer if stack.pop().empty() then 1 else 0
+  '+':  b (stack) ->
+    b = stack.pop()
+    a = stack.pop()
+    if a instanceof types.Integer and b instanceof types.Integer
+      stack.push a.plus b
+    else
+      # TODO: others
+      throw new Error 'unimplemented'
+  '-':  b (stack) ->
+    b = stack.pop()
+    a = stack.pop()
+    if a instanceof types.Integer and b instanceof types.Integer
+      stack.push a.minus b
+    else
+      # TODO: others
+      throw new Error 'unimplemented'
+  '*':  b (stack) ->
+    b = stack.pop()
+    a = stack.pop()
+    if a instanceof types.Integer and b instanceof types.Integer
+      stack.push a.times b
+    else
+      # TODO: others
+      throw new Error 'unimplemented'
   '$':  b (stack) ->
     v = stack.pop()
     if v instanceof types.Integer

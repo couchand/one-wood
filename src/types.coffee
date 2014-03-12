@@ -17,6 +17,12 @@ class Integer extends KnownValue
   constructor: (@v) ->
     @v = parseInt @v
   empty: -> @v is 0
+  plus: (other) ->
+    new Integer @v + other.v
+  minus: (other) ->
+    new Integer @v - other.v
+  times: (other) ->
+    new Integer @v * other.v
 
 class Array extends KnownValue
   constructor: (@v) ->
