@@ -1,10 +1,11 @@
 #!/usr/local/bin/coffee
 # cli interpreter
 
+Lexer = require './src/lexer'
 Interpreter = require './src/interpreter'
 
 input = process.argv.slice 2
 
-i = new Interpreter "#{input}"
+i = new Interpreter new Lexer "#{input}"
 
 console.log v for v in i.run().stack

@@ -31,13 +31,13 @@ class String extends KnownValue
     new String @v.split('').sort().join('')
 
 class Block extends KnownValue
-  constructor: (@v) ->
+  constructor: (@v, @f) ->
   empty: -> @v.length is 0
+  run: (stack) ->
+    @f stack
 
 class Builtin extends Block
   constructor: (@f) ->
-    super '<native code>'
-  run: (stack, scope) ->
-    @f stack, scope
+    super '<native code>', @f
 
 module.exports = {Unknown, Integer, Array, String, Block, Builtin}
