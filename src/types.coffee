@@ -31,15 +31,13 @@ class String extends KnownValue
     new String @v.split('').sort().join('')
 
 class Block extends KnownValue
-  constructor: (@v, @compiled) ->
+  constructor: (@v) ->
   empty: -> @v.length is 0
 
-  compile: ->
-    return @compiled if @compiled
-    @compiled = ->
-
+class Builtin extends Block
+  constructor: (@f) ->
+    super '<native code>'
   run: (stack, scope) ->
-    @compile()
-    @compiled stack, scope
+    @f stack, scope
 
-module.exports = {Unknown, Integer, Array, String, Block}
+module.exports = {Unknown, Integer, Array, String, Block, Builtin}

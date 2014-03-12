@@ -3,7 +3,7 @@
 types = require './types'
 
 b = (f) ->
-  new types.Block '<native code>', f
+  new types.Builtin f
 
 module.exports =
   '.':  b (stack) -> stack.copy 0
