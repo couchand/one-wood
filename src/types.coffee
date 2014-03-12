@@ -17,6 +17,8 @@ class Integer extends KnownValue
   constructor: (@v) ->
     @v = parseInt @v
   empty: -> @v is 0
+  not: ->
+    new Integer ~@v
   plus: (other) ->
     new Integer @v + other.v
   minus: (other) ->

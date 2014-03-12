@@ -52,9 +52,12 @@ module.exports =
     if v instanceof types.Array
       stack.push el for el in v.v
     else if v instanceof types.Integer
-      # TODO: bitwise not
+      stack.push v.not()
+    else if v instanceof types.Block
+      v.run stack
     else
       # TODO: eval
+      throw new Error 'unimplemented'
   n:  b (stack) -> stack.push new types.String "\n"
   print:  b (stack) ->
     v = stack.pop()
