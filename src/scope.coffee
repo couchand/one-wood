@@ -5,7 +5,7 @@ types = require './types'
 
 makeLiteral = (v) ->
   if v[0] is '"'
-    new types.String v
+    new types.String v[1...v.length-1]
   else if /[-0-9]/.test v[0]
     new types.Integer v
   else
