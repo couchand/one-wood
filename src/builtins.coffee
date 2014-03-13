@@ -42,8 +42,8 @@ module.exports =
       stack.copy v.v
     else if v instanceof types.Block
       r = stack.pop()
-      stack.push r.sort v
-    else
+      stack.push r.sort v, stack
+    else # array, string
       stack.push v.sort()
   '[':  b (stack) -> stack.mark()
   ']':  b (stack) -> stack.push stack.slice()
@@ -55,9 +55,18 @@ module.exports =
       stack.push v.not()
     else if v instanceof types.Block
       v.run stack
-    else
+    else # string
       # TODO: eval
       throw new Error 'unimplemented'
+  ',':  b (stack) ->
+    v = stack.pop()
+    if v instanceof types.Integer
+      stack.push new types.Array [0...v.v]
+    else if v instanceof types.Block
+      r = stack.pop()
+      stack.push r.select v, stack
+    else # array, string
+      stack.push new types.Integer v.v.length
   n:  b (stack) -> stack.push new types.String "\n"
   print:  b (stack) ->
     v = stack.pop()

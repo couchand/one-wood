@@ -29,15 +29,25 @@ class Integer extends KnownValue
 class Array extends KnownValue
   constructor: (@v) ->
   empty: -> @v.length is 0
-  sort: (block) ->
+  sort: (block, stack) ->
+    map = (v) ->
+      stack.push v
+      block.run stack
+      stack.pop()
     if block
       new Array @v.sort (a, b) ->
-        am = block.run [a]
-        bm = block.run [b]
-        am[0].compare bm[0]
+        am = map a
+        bm = map b
+        am.compare bm
     else
       new Array @v.sort (a, b) ->
         a.compare b
+  select: (block, stack) ->
+    map = (v) ->
+      stack.push v
+      block.run stack
+      stack.pop()
+    new Array (el for el in @v when not map(el).empty())
 
 class String extends KnownValue
   constructor: (@v) ->
