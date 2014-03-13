@@ -1,16 +1,6 @@
 # , builtin tests
 
-Interpreter = require '../src/interpreter'
-Lexer = require '../src/lexer'
-
-test = (message, input, expected) ->
-  interpreter = new Interpreter new Lexer input
-  actual = (val.v for val in interpreter.run().stack)
-  console.log """
-              #{message}
-              Expected: [#{expected}]
-              Actual  : #{JSON.stringify actual}
-              """
+test = require './helper'
 
 test 'zero creates empty array',
   '0,',
