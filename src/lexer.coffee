@@ -6,6 +6,7 @@ token = ///
         [a-zA-Z_][a-zA-Z0-9_]*  | # identifier
         -?[0-9]+                | # number
         "[^"]*"                 | # string
+        \#                      | # comments
         .                       | # operator
         \n
         ///
@@ -15,7 +16,12 @@ class StringLexer
 
   peek: ->
     return no unless @input.length
-    @input.match(token)[0]
+    t = @input.match(token)[0]
+    if t is '#'
+      while t isnt '\n'
+        @input = @input[1..]
+        t = @input.match(token)[0]
+    t
 
   pop: ->
     return no unless @input.length
