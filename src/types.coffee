@@ -56,6 +56,8 @@ class Array extends KnownValue
     stack.mark()
     @each block, stack
     stack.slice()
+  selectNonEmpty: ->
+    new Array @v.filter (el) -> not el.empty()
 
 class String extends KnownValue
   constructor: (@v) ->

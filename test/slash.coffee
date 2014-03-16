@@ -6,6 +6,10 @@ test 'string split',
   '"a s d f"" "/~'
   '"a" "s" "d" "f"'
 
+test 'split string leave empties',
+  '"assdfs" "s"/~'
+  '"a" "" "df" ""'
+
 test 'array each',
   '[1 2 3]{1+}/'
   '2 3 4'

@@ -55,6 +55,8 @@ module.exports =
       stack.push a.map b, stack
     else if b instanceof types.Array and a instanceof types.Block
       stack.push b.map a, stack
+    else if a instanceof types.String and b instanceof types.String
+      stack.push a.split(b).selectNonEmpty()
     else
       # TODO: others
       throw new Error 'unimplemented'
