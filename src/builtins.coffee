@@ -43,6 +43,8 @@ module.exports =
       a.each b, stack
     else if b instanceof types.Array and a instanceof types.Block
       b.each a, stack
+    else if a instanceof types.String and b instanceof types.String
+      stack.push a.split b
     else
       # TODO: others
       throw new Error 'unimplemented'

@@ -62,6 +62,8 @@ class String extends KnownValue
   empty: -> @v.length is 0
   sort: ->
     new String @v.split('').sort().join('')
+  split: (s) ->
+    new Array (new String part for part in @v.split s.v)
 
 class Block extends KnownValue
   constructor: (@v, @f) ->
