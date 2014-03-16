@@ -36,6 +36,16 @@ module.exports =
     else
       # TODO: others
       throw new Error 'unimplemented'
+  '/':  b (stack) ->
+    b = stack.pop()
+    a = stack.pop()
+    if a instanceof types.Array and b instanceof types.Block
+      a.each b, stack
+    else if b instanceof types.Array and a instanceof types.Block
+      b.each a, stack
+    else
+      # TODO: others
+      throw new Error 'unimplemented'
   '%':  b (stack) ->
     b = stack.pop()
     a = stack.pop()

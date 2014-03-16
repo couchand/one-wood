@@ -48,11 +48,13 @@ class Array extends KnownValue
       block.run stack
       stack.pop()
     new Array (el for el in @v when not map(el).empty())
-  map: (block, stack) ->
-    stack.mark()
+  each: (block, stack) ->
     for el in @v
       stack.push el
       block.run stack
+  map: (block, stack) ->
+    stack.mark()
+    @each block, stack
     stack.slice()
 
 class String extends KnownValue
