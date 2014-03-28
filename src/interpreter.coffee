@@ -8,6 +8,7 @@ class Interpreter
   constructor: (@lexer, @scope, @stack) ->
     @scope ?= new Scope()
     @stack ?= new Stack()
+    @source = ''
 
   step: ->
     token = @lexer.pop()
@@ -20,9 +21,11 @@ class Interpreter
     if token is '{'
       child = new Interpreter @lexer, @scope
         .compile()
+      @source += "{#{child.source}}"
       return (stack) =>
         stack.push new types.Block child.source, child
 
+    @source += token
     (stack) =>
       value = @scope.get token
       if value instanceof types.Unknown
@@ -38,15 +41,13 @@ class Interpreter
 
   compile: ->
     fns = []
-    source = ''
     while (t = @lexer.peek()) and t isnt '}'
-      source += t
       fns.push @step()
     @lexer.pop() if @lexer.peek() is '}'
     fn = (stack) ->
       fn.call null, stack for fn in fns when fn
       stack
-    fn.source = source
+    fn.source = @source
     fn
 
 module.exports = Interpreter
