@@ -21,7 +21,7 @@ class Interpreter
       child = new Interpreter @lexer, @scope
         .compile()
       return (stack) =>
-        stack.push new types.Block 'source', child
+        stack.push new types.Block child.source, child
 
     (stack) =>
       value = @scope.get token
@@ -38,11 +38,15 @@ class Interpreter
 
   compile: ->
     fns = []
+    source = ''
     while (t = @lexer.peek()) and t isnt '}'
+      source += t
       fns.push @step()
     @lexer.pop() if @lexer.peek() is '}'
-    (stack) ->
+    fn = (stack) ->
       fn.call null, stack for fn in fns when fn
       stack
+    fn.source = source
+    fn
 
 module.exports = Interpreter

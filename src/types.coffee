@@ -31,6 +31,9 @@ class Integer extends KnownValue
 class Array extends KnownValue
   constructor: (@v) ->
   empty: -> @v.length is 0
+  toString: ->
+    els = (e.toString().v for e in @v)
+    new String "[#{els.join ' '}]"
   sort: (block, stack) ->
     map = (v) ->
       stack.push v
@@ -79,6 +82,8 @@ class String extends KnownValue
 class Block extends KnownValue
   constructor: (@v, @f) ->
   empty: -> @v.length is 0
+  toString: ->
+    new String "{#{@v}}"
   run: (stack) ->
     @f stack
 
