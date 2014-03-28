@@ -91,6 +91,26 @@ module.exports =
       stack.push r.select v, stack
     else # array, string
       stack.push new types.Integer v.v.length
+  '(':  b (stack) ->
+    v = stack.pop()
+    if v instanceof types.Integer
+      stack.push new types.Integer v.v - 1
+    else if v instanceof types.Array
+      n = v.v[0]
+      stack.push new types.Array v.v[1..]
+      stack.push n
+    else
+      throw new Error 'unimplemented'
+  ')':  b (stack) ->
+    v = stack.pop()
+    if v instanceof types.Integer
+      stack.push new types.Integer v.v + 1
+    else if v instanceof types.Array
+      n = v.v[-1..][0]
+      stack.push new types.Array v.v[0...-1]
+      stack.push n
+    else
+      throw new Error 'unimplemented'
   n:  b (stack) -> stack.push new types.String "\n"
   print:  b (stack) ->
     v = stack.pop()
