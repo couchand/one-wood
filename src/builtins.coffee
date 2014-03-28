@@ -85,7 +85,7 @@ module.exports =
   ',':  b (stack) ->
     v = stack.pop()
     if v instanceof types.Integer
-      stack.push new types.Array [0...v.v]
+      stack.push new types.Array (new types.Integer i for i in [0...v.v])
     else if v instanceof types.Block
       r = stack.pop()
       stack.push r.select v, stack
