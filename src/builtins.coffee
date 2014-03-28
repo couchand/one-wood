@@ -10,6 +10,8 @@ module.exports =
   ';':  b (stack) -> stack.pop()
   '@':  b (stack) -> stack.rotate()
   '\\': b (stack) -> stack.swap()
+  '`':  b (stack) ->
+    stack.push stack.pop().toString()
   '!':  b (stack) ->
     stack.push new types.Integer if stack.pop().empty() then 1 else 0
   '+':  b (stack) ->

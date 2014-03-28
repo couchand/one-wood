@@ -5,6 +5,8 @@ class Unknown
 
 class KnownValue
   constructor: ->
+  toString: ->
+    new String @v
   compare: (other) ->
     if @v is other.v
       0
@@ -59,9 +61,16 @@ class Array extends KnownValue
   selectNonEmpty: ->
     new Array @v.filter (el) -> not el.empty()
 
+backslash = new RegExp "\\\\", 'g'
+doublequote = new RegExp "\"", 'g'
+
 class String extends KnownValue
-  constructor: (@v) ->
+  constructor: (@v) -> @v = "#{@v}"
   empty: -> @v.length is 0
+  toString: ->
+    escaped = @v.replace backslash, "\\\\"
+      .replace doublequote, "\\\""
+    new String "\"#{escaped}\""
   sort: ->
     new String @v.split('').sort().join('')
   split: (s) ->
