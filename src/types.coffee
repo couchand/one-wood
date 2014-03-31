@@ -30,8 +30,9 @@ class Integer extends KnownValue
   exp: (other) ->
     new Integer @v ** other.v
   equals: (other) ->
-    console.log "checking equality", this, other, @v is other.v
     new Integer if @v is other.v then 1 else 0
+  after: (other) ->
+    new Integer if @v > other.v then 1 else 0
 
 class Array extends KnownValue
   constructor: (@v) ->
@@ -79,6 +80,8 @@ class Array extends KnownValue
     new Array @v.filter (el) -> not el.empty()
   find: (needle) ->
     new Integer @v.indexOf needle
+  after: (index) ->
+    new Array @v[index.v+1...]
 
 backslash = new RegExp "\\\\", 'g'
 doublequote = new RegExp '"', 'g'
@@ -102,6 +105,8 @@ class String extends KnownValue
     new Integer @v.indexOf s.v
   equals: (other) ->
     new Integer if @v is other.v then 1 else 0
+  after: (other) ->
+    new Integer if @v > other.v then 1 else 0
 
 class Block extends KnownValue
   constructor: (@v, @f) ->
