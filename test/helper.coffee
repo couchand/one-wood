@@ -7,7 +7,7 @@ module.exports = test = (message, input, expected) ->
   interpreter = new Interpreter new Lexer input
   actual = (val.toString().v for val in interpreter.run().stack)
   console.log """
-              #{message}
-                Expected: [#{expected}]
-                Actual  : [#{actual}]
+              #{message}: #{input}
+                Expected: #{expected}
+                Actual  : #{actual}
               """

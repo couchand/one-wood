@@ -26,10 +26,9 @@ test 'array returns zero',
   '[1 2 3]!',
   '0'
 
-# broken currently
-#test 'empty block returns one',
-#  '{}!',
-#  '1'
+test 'empty block returns one',
+  '{}!',
+  '1'
 
 test 'block returns zero',
   '{1 2 3}!',
