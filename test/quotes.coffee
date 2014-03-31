@@ -8,4 +8,4 @@ test 'double quotes make strings',
 
 test 'characters are escapable in double quotes',
   '"\\""'
-  '"\\\\""'
+  '"\\""'
