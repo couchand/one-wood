@@ -31,9 +31,9 @@ class Integer extends KnownValue
     new Integer @v ** other.v
   equals: (other) ->
     new Integer if @v is other.v then 1 else 0
-  after: (other) ->
+  greaterThan: (other) ->
     new Integer if @v > other.v then 1 else 0
-  before: (other) ->
+  lessThan: (other) ->
     new Integer if @v < other.v then 1 else 0
 
 class Array extends KnownValue
@@ -83,7 +83,7 @@ class Array extends KnownValue
   find: (needle) ->
     new Integer @v.indexOf needle
   after: (index) ->
-    new Array @v[index.v+1...]
+    new Array @v[index.v...]
   before: (index) ->
     new Array @v[...index.v]
 
@@ -109,10 +109,16 @@ class String extends KnownValue
     new Integer @v.indexOf s.v
   equals: (other) ->
     new Integer if @v is other.v then 1 else 0
-  after: (other) ->
+  greaterThan: (other) ->
     new Integer if @v > other.v then 1 else 0
-  before: (other) ->
+  lessThan: (other) ->
     new Integer if @v < other.v then 1 else 0
+  get: (index) ->
+    new String @v[index.v]
+  after: (index) ->
+    new String @v[index.v...]
+  before: (index) ->
+    new String @v[...index.v]
 
 class Block extends KnownValue
   constructor: (@v, @f) ->

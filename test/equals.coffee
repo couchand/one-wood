@@ -18,6 +18,14 @@ test 'unequal strings return 0',
   '"foobar""foo"='
   '0'
 
+test 'integer indexes into string',
+  '"foobar" 3='
+  '"b"'
+
+test 'integer index reversed',
+  '3"foobar"='
+  '"b"'
+
 test 'integer indexes into array',
   '[1 2 3] 1='
   '2'

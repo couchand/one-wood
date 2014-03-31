@@ -18,10 +18,18 @@ test 'smaller string returns 0',
   '"foo""goo">'
   '0'
 
+test 'integer indexes into string',
+  '"foobar"2>'
+  '"obar"'
+
+test 'integer index reversed',
+  '2"foobar">'
+  '"obar"'
+
 test 'integer indexes into array',
   '[1 2 3] 1>'
-  '[3]'
+  '[2 3]'
 
 test 'integer index reversed',
   '1 [1 2 3]>'
-  '[3]'
+  '[2 3]'
