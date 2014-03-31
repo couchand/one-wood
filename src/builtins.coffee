@@ -5,15 +5,19 @@ types = require './types'
 b = (f) ->
   new types.Builtin f
 
+u = (f) ->
+  new types.Builtin (stack) ->
+    stack.push f stack.pop()
+
 module.exports =
   '.':  b (stack) -> stack.copy 0
   ';':  b (stack) -> stack.pop()
   '@':  b (stack) -> stack.rotate()
   '\\': b (stack) -> stack.swap()
-  '`':  b (stack) ->
-    stack.push stack.pop().toString()
-  '!':  b (stack) ->
-    stack.push new types.Integer if stack.pop().empty() then 1 else 0
+  '`':  u (v) ->
+    v.toString()
+  '!':  u (v) ->
+    new types.Integer if v.empty() then 1 else 0
   '+':  b (stack) ->
     b = stack.pop()
     a = stack.pop()
@@ -113,7 +117,8 @@ module.exports =
       stack.push n
     else
       throw new Error 'unimplemented'
-  n:  b (stack) -> stack.push new types.String "\n"
+  n:  u () ->
+    new types.String "\n"
   print:  b (stack) ->
     v = stack.pop()
     console.log "#{v.v}"
