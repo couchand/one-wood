@@ -29,6 +29,9 @@ class Integer extends KnownValue
     new Integer @v * other.v
   exp: (other) ->
     new Integer @v ** other.v
+  equals: (other) ->
+    console.log "checking equality", this, other, @v is other.v
+    new Integer if @v is other.v then 1 else 0
 
 class Array extends KnownValue
   constructor: (@v) ->
@@ -36,6 +39,7 @@ class Array extends KnownValue
   toString: ->
     els = (e.toString().v for e in @v)
     new String "[#{els.join ' '}]"
+  get: (i) -> @v[i.v]
   sort: (block, stack) ->
     if block
       map = (v) ->
@@ -96,6 +100,8 @@ class String extends KnownValue
     new Array (new String part for part in @v.split s.v)
   find: (s) ->
     new Integer @v.indexOf s.v
+  equals: (other) ->
+    new Integer if @v is other.v then 1 else 0
 
 class Block extends KnownValue
   constructor: (@v, @f) ->
