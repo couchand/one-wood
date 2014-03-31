@@ -8,6 +8,6 @@ module.exports = test = (message, input, expected) ->
   actual = (val.toString().v for val in interpreter.run().stack)
   console.log """
               #{message}
-              Expected: [#{expected}]
-              Actual  : [#{actual}]
+                Expected: [#{expected}]
+                Actual  : [#{actual}]
               """
