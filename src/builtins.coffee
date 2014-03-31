@@ -123,6 +123,19 @@ module.exports =
       stack.push b.after a
     else
       throw new Error "unimplemented"
+  '<':  b (stack) ->
+    b = stack.pop()
+    a = stack.pop()
+    if a instanceof types.Integer and b instanceof types.Integer
+      stack.push a.before b
+    else if a instanceof types.String and b instanceof types.String
+      stack.push a.before b
+    else if a instanceof types.Array and b instanceof types.Integer
+      stack.push a.before b
+    else if a instanceof types.Integer and b instanceof types.Array
+      stack.push b.before a
+    else
+      throw new Error "unimplemented"
   '?':  b (stack) ->
     b = stack.pop()
     a = stack.pop()

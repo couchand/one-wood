@@ -33,6 +33,8 @@ class Integer extends KnownValue
     new Integer if @v is other.v then 1 else 0
   after: (other) ->
     new Integer if @v > other.v then 1 else 0
+  before: (other) ->
+    new Integer if @v < other.v then 1 else 0
 
 class Array extends KnownValue
   constructor: (@v) ->
@@ -82,6 +84,8 @@ class Array extends KnownValue
     new Integer @v.indexOf needle
   after: (index) ->
     new Array @v[index.v+1...]
+  before: (index) ->
+    new Array @v[...index.v]
 
 backslash = new RegExp "\\\\", 'g'
 doublequote = new RegExp '"', 'g'
@@ -107,6 +111,8 @@ class String extends KnownValue
     new Integer if @v is other.v then 1 else 0
   after: (other) ->
     new Integer if @v > other.v then 1 else 0
+  before: (other) ->
+    new Integer if @v < other.v then 1 else 0
 
 class Block extends KnownValue
   constructor: (@v, @f) ->
