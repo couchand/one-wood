@@ -65,14 +65,18 @@ class Array extends KnownValue
     new Array @v.filter (el) -> not el.empty()
 
 backslash = new RegExp "\\\\", 'g'
-doublequote = new RegExp "\"", 'g'
+doublequote = new RegExp '"', 'g'
+backslash_e = new RegExp "\\\\\\\\", 'g'
+doublequote_e = new RegExp '\\"', 'g'
 
 class String extends KnownValue
-  constructor: (@v) -> @v = "#{@v}"
+  constructor: (@v) ->
+    @v = "#{@v}".replace doublequote_e, '"'
+      .replace backslash_e, "\\"
   empty: -> @v.length is 0
   toString: ->
     escaped = @v.replace backslash, "\\\\"
-      .replace doublequote, "\\\""
+      .replace doublequote, '\\"'
     new String "\"#{escaped}\""
   sort: ->
     new String @v.split('').sort().join('')

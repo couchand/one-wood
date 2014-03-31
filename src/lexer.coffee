@@ -5,7 +5,7 @@
 token = ///
         [a-zA-Z_][a-zA-Z0-9_]*  | # identifier
         -?[0-9]+                | # number
-        "[^"]*"                 | # string
+        "(\\\\|\\"|[^"])*"      | # string
         \#                      | # comments
         .                       | # operator
         \n

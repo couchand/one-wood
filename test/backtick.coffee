@@ -10,6 +10,10 @@ test 'string string representation',
   '"foo"`'
   '"\\"foo\\""'
 
+test 'escaped string representation',
+  '"foo\\"bar"`'
+  '"\\"foo\\\\\\"bar\\""'
+
 test 'array string representation',
   '[1 2 3]`'
   '"[1 2 3]"'
