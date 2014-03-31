@@ -94,6 +94,8 @@ class String extends KnownValue
     new String @v.split('').sort().join('')
   split: (s) ->
     new Array (new String part for part in @v.split s.v)
+  find: (s) ->
+    new Integer @v.indexOf s.v
 
 class Block extends KnownValue
   constructor: (@v, @f) ->

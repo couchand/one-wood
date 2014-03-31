@@ -102,9 +102,15 @@ module.exports =
     a = stack.pop()
     if a instanceof types.Integer and b instanceof types.Integer
       stack.push a.exp b
+    else if a instanceof types.String and b instanceof types.String
+      stack.push a.find b
     else if a instanceof types.Integer and b instanceof types.Array
       stack.push b.find a
     else if a instanceof types.Array and b instanceof types.Integer
+      stack.push a.find b
+    else if a instanceof types.String and b instanceof types.Array
+      stack.push b.find a
+    else if a instanceof types.Array and b instanceof types.String
       stack.push a.find b
     else if a instanceof types.Array and b instanceof types.Block
       stack.push a.first b, stack

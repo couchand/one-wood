@@ -18,6 +18,18 @@ test 'array indexOf returns -1 when not found',
   '[1 2 3] 4?'
   '-1'
 
+test 'string indexOf',
+  '"foobar""b"?'
+  '3'
+
+test 'array and string indexOf',
+  '["foo" "bar" "baz"]"bar"?'
+  '1'
+
+test 'array and string indexOf reversed',
+  '"bar"["foo" "bar" "baz"]?'
+  '1'
+
 test 'array and block finds satisfier',
   '[1 2 3]{;1}?'
   '1'
