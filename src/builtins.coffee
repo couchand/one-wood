@@ -97,6 +97,21 @@ module.exports =
       stack.push r.select v, stack
     else # array, string
       stack.push new types.Integer v.v.length
+  '?':  b (stack) ->
+    b = stack.pop()
+    a = stack.pop()
+    if a instanceof types.Integer and b instanceof types.Integer
+      stack.push a.exp b
+    else if a instanceof types.Integer and b instanceof types.Array
+      stack.push b.find a
+    else if a instanceof types.Array and b instanceof types.Integer
+      stack.push a.find b
+    else if a instanceof types.Array and b instanceof types.Block
+      stack.push a.first b, stack
+    else if a instanceof types.Block and b instanceof types.Array
+      stack.push b.first a, stack
+    else
+      throw new Error "unimplemented"
   '(':  b (stack) ->
     v = stack.pop()
     if v instanceof types.Integer

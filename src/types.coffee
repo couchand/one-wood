@@ -27,6 +27,8 @@ class Integer extends KnownValue
     new Integer @v - other.v
   times: (other) ->
     new Integer @v * other.v
+  exp: (other) ->
+    new Integer @v ** other.v
 
 class Array extends KnownValue
   constructor: (@v) ->
@@ -35,11 +37,11 @@ class Array extends KnownValue
     els = (e.toString().v for e in @v)
     new String "[#{els.join ' '}]"
   sort: (block, stack) ->
-    map = (v) ->
-      stack.push v
-      block.run stack
-      stack.pop()
     if block
+      map = (v) ->
+        stack.push v
+        block.run stack
+        stack.pop()
       new Array @v.sort (a, b) ->
         am = map a
         bm = map b
@@ -47,6 +49,14 @@ class Array extends KnownValue
     else
       new Array @v.sort (a, b) ->
         a.compare b
+  first: (block, stack) ->
+    map = (v) ->
+      stack.push v
+      block.run stack
+      stack.pop()
+    for el in @v when not map(el).empty()
+      return el
+    new Integer -1
   select: (block, stack) ->
     map = (v) ->
       stack.push v
@@ -63,6 +73,8 @@ class Array extends KnownValue
     stack.slice()
   selectNonEmpty: ->
     new Array @v.filter (el) -> not el.empty()
+  find: (needle) ->
+    new Integer @v.indexOf needle
 
 backslash = new RegExp "\\\\", 'g'
 doublequote = new RegExp '"', 'g'
